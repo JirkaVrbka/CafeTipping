@@ -3,9 +3,8 @@ using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
 using CaffeTiping.WebApp;
 using CaffeTiping.WebApp.Components;
-using CaffeTiping.WebApp.Configuration;
 using CaffeTiping.WebApp.Extensions;
-using CaffeTipping.DbServices.Extensions;
+using CaffeTipping.WebCommon.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

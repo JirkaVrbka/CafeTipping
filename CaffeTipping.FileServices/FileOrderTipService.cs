@@ -7,8 +7,7 @@ namespace CaffeTipping.FileServices;
 
 public class FileOrderTipService(ILogger<FileOrderTipService> logger) : GenericFileService<OrderTipDto>(logger), IOrderTipService
 {
-    private const string FileName = "OrderTip.json";
-    protected override string FilePath { get; } = Directory.GetCurrentDirectory() + FileName;
+    protected override string FileName { get; } = "OrderTip.json";
     
     public async Task<OrderTipDto> GetOrCreateOrderTip(Guid tableId)
     {
@@ -63,4 +62,5 @@ public class FileOrderTipService(ILogger<FileOrderTipService> logger) : GenericF
     }
 
 
+    
 }

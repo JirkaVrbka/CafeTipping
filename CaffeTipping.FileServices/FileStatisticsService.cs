@@ -6,8 +6,7 @@ namespace CaffeTipping.FileServices;
 
 public class FileStatisticsService(ILogger<FileStatisticsService> logger) : GenericFileService<StatisticsDto>(logger), IStatisticsService
 {
-    private const string FileName = "Statistics.json";
-    protected override string FilePath { get; } = Directory.GetCurrentDirectory() + FileName;
+    protected override string FileName { get; } = "Statistics.json";
     
     public async Task UpdateStatistics(StatisticsDto statisticsDto)
     {

@@ -3,9 +3,9 @@ using CaffeTipping.DbInfrastructure.Repositories;
 using CaffeTipping.DbServices.Services;
 using CaffeTipping.FileServices;
 using CaffeTipping.ServicesContract;
+using Microsoft.Extensions.DependencyInjection;
 
-
-namespace CaffeTiping.WebApp.Extensions;
+namespace CaffeTipping.WebCommon.Extensions;
 
 public static class ServiceCollectionExtension
 {

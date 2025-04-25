@@ -1,4 +1,4 @@
-﻿namespace CaffeTiping.WebApp.Configuration;
+﻿namespace CaffeTipping.WebCommon.Options;
 
 public sealed class StorageOptions
 {
