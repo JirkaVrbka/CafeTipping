@@ -1,0 +1,249 @@
+﻿@page "/"
+@using CaffeTiping.WebApp.Components.PageComponents.Home
+@using CaffeTipping.DbServices.Dtos
+@using CaffeTipping.DbServices.Services
+
+@rendermode InteractiveServer
+
+<PageTitle>Tip us</PageTitle>
+
+@if (_formVisible)
+{
+   <Row Class="full-page">
+      <Column>
+
+         @if (_canGoPrevious)
+         {
+            <div class="navigation-icon">
+               <div class="full-page " onclick="@MoveFormToPrevStep">
+                  <div class="centered-base h-100">
+                     <Icon Name="IconName.ChevronLeft" IconSize="IconSize.x5"></Icon>
+                  </div>
+               </div>
+            </div>
+         }
+
+      </Column>
+      <Column class="col-6 tip-base">
+
+         <Steps
+            @ref="_stepsRef"
+            SelectedStepChanged="@ValidateNavigation"
+            SelectedStep="@_selectedStep">
+            <Items>
+               <Step Name="1">Table</Step>
+               <Step Name="2">Contact</Step>
+               <Step Name="3">Tip</Step>
+               <Step Name="4">Finish</Step>
+            </Items>
+            <Content>
+               <StepPanel Name="1" Class="tip-step">
+                  <TableIdForm
+                     OnValidInput="@TableIdChanged"
+                     OnInvalidInput="@OnInvalidInput"/>
+               </StepPanel>
+               @if (_currentOrderTip is not null)
+               {
+                  <StepPanel Name="2" Class="tip-step">
+                     <ContactEmailForm
+                        Email="@_currentOrderTip.Email"
+                        OnValidInput="OnEmailChanged"
+                        OnInvalidInput="@OnInvalidInput"/>
+                  </StepPanel>
+                  <StepPanel Name="3" Class="tip-step">
+                     <TipForm
+                        Tip="@_currentOrderTip.Tip"
+                        Bill="@_currentOrderTip.Bill"
+                        TipChanged="@OnTipChanged"/>
+                  </StepPanel>
+                  <StepPanel Name="4" Class="tip-step">
+                     <RatingForm
+                        Rating="@_currentOrderTip.Rating"
+                        OnValidInput="@OnRatingChanged"/>
+                  </StepPanel>
+               }
+            </Content>
+         </Steps>
+
+
+      </Column>
+      <Column>
+         @if (_selectedStep.Equals("4"))
+         {
+            <div class="navigation-icon">
+               <div class="full-page" onclick="@(async () => await FinishTip())">
+                  <div class="centered-base h-100">
+                     <Icon Name="IconName.Flag" IconSize="IconSize.x5"></Icon>
+                  </div>
+               </div>
+            </div>
+         }
+         else if (_canGoNext)
+         {
+            <div class="navigation-icon">
+               <div class="full-page" onclick="@MoveFormToNextStep">
+                  <div class="centered-base h-100">
+                     <Icon Name="IconName.ChevronRight" IconSize="IconSize.x5"></Icon>
+                  </div>
+               </div>
+            </div>
+         }
+
+      </Column>
+   </Row>
+}
+else
+{
+   <div class="d-flex flex-column align-items-center justify-content-center vh-100">
+      <div class="fs-1">See you next time</div>
+      <Icon Name="IconName.Heart" IconSize="IconSize.x5"></Icon>
+   </div>
+   
+}
+
+<div class="tip-of-day">
+   Highest tip of the day: @_highestTipOfDay
+</div>
+
+@code
+{
+
+   [Inject]
+   public ILogger<Home> Logger { get; set; } = null!;
+
+   [Inject]
+   public IOrderTipService OrderTipService { get; set; } = null!;
+
+   [Inject]
+   public IStatisticsService StatisticsService { get; set; } = null!;
+
+   // references
+   private Steps _stepsRef = null!;
+
+   private CancellationTokenSource _cancellationTokenSource = new();
+   private string _selectedStep = "1";
+   private bool _canGoNext;
+   private bool _canGoPrevious;
+   private bool _formVisible = true;
+   private double _highestTipOfDay = 0;
+
+   private OrderTipDto? _currentOrderTip;
+
+   protected override async Task OnInitializedAsync()
+   {
+      _highestTipOfDay = await GetHighestTipOfDay();
+      await base.OnInitializedAsync();
+   }
+
+
+   private async Task<double> GetHighestTipOfDay()
+   {
+       var tipId = (await StatisticsService.GetLatestAsync());
+       var tip = (await OrderTipService.GetOrderTip(tipId.HighestTipOfDay))?.Tip ?? 0;
+       
+       return tip;
+   }
+
+   private async Task TableIdChanged(Guid tableId)
+   {
+      Logger.LogInformation("Accepted table Id");
+      _currentOrderTip = await OrderTipService.GetOrCreateOrderTip(tableId);
+      _canGoNext = true;
+   }
+
+   private void OnEmailChanged(string email)
+   {
+      Logger.LogInformation("OnEmailChanged");
+      
+      if (_currentOrderTip is not null)
+         _currentOrderTip.Email = email;
+     
+      _canGoNext = true; 
+   }
+
+   private void OnTipChanged(double tip)
+   {
+      Logger.LogInformation("Tip accepted {Tip}", tip);
+      
+      if (_currentOrderTip is not null)
+         _currentOrderTip.Tip = tip;
+     
+      _canGoNext = true;
+   }
+   
+   private void OnRatingChanged(short rating)
+   {
+      Logger.LogInformation("Rating accepted {Rating}", rating);
+      
+      if (_currentOrderTip is not null)
+         _currentOrderTip.Rating = rating;
+     
+      _canGoNext = true;
+   }
+
+   private void ValidateNavigation(string currentStep)
+   {
+      _selectedStep = currentStep;
+      _canGoPrevious = !currentStep.Equals("1");
+   }
+
+   private void OnInvalidInput()
+      => _canGoNext = false;
+
+   private void MoveFormToNextStep()
+   {
+      _stepsRef.NextStep();
+
+      _canGoNext = false;
+
+      if (_selectedStep.Equals("2") && !String.IsNullOrEmpty(_currentOrderTip?.Email))
+         _canGoNext = true;
+      
+      if (_selectedStep.Equals("3") && _currentOrderTip?.Tip > 0)
+         _canGoNext = true; 
+      
+      Logger.LogInformation("Moving to next stage ");
+   }
+   
+   private void MoveFormToPrevStep()
+   {
+      _stepsRef.PreviousStep();
+      _canGoNext = true;
+   }
+
+   private async Task FinishTip()
+   {
+      Logger.LogInformation("Finishing tipping");
+
+      if (_currentOrderTip is null)
+      {
+         Logger.LogError("Unable to save order tip because model was null");
+      }
+      else
+      {
+         try
+         {
+            await OrderTipService.CreateOrUpdate(_currentOrderTip);
+            
+            _highestTipOfDay = await GetHighestTipOfDay();
+            if (_highestTipOfDay < _currentOrderTip.Tip)
+               _highestTipOfDay = _currentOrderTip.Tip;
+         }
+         catch (Exception e)
+         {
+            Logger.LogError(e, "Unable to save order tip because Db error");
+         }
+         
+         _currentOrderTip = null;
+      }
+     
+     
+      
+      _formVisible = false;
+      await Task
+         .Delay(TimeSpan.FromSeconds(2))
+         .ContinueWith(_ => _formVisible = true); 
+      _selectedStep = "1";
+   }
+   
+}

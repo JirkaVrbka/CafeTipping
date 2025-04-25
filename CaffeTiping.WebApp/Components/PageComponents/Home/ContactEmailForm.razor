@@ -1,0 +1,67 @@
+﻿@using System.Text.RegularExpressions
+@rendermode InteractiveServer
+
+@namespace CaffeTiping.WebApp.Components.PageComponents.Home
+
+
+<Validation
+    Validator="ValidateEmail">
+    <Field>
+        <FieldLabel>
+            Contact e-mail
+        </FieldLabel>
+        <TextEdit
+            InputMode="TextInputMode.Email"
+            Text="@Email"
+            TextChanged="OnEmailChanged"
+            Placeholder="my@email.com"
+            FocusOut="OnFocusOut"
+            Autofocus/>
+    </Field>
+</Validation>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public EventCallback<string> OnValidInput { get; set; }
+
+    [Parameter, EditorRequired]
+    public Action OnInvalidInput { get; set; } = null!;
+
+    [Parameter]
+    public string Email { get; set; } = "";
+
+    private static readonly Regex EmailRegex = new Regex(@"^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$");
+    
+    private void ValidateEmail(ValidatorEventArgs e)
+    {
+        var email = Convert.ToString(e.Value);
+        e.Status = IsValidEmail(email) ? ValidationStatus.Success : ValidationStatus.None;
+    }
+
+    private bool IsValidEmail(string? text)
+    {
+        return text is not null && EmailRegex.IsMatch(text);
+    }
+
+    private async Task OnFocusOut()
+    {
+        Console.WriteLine($"On focus out for {Email}:{IsValidEmail(Email)}");
+        await SendValidity();
+    }
+
+    private async Task OnEmailChanged(string email)
+    {
+        Email = email;
+        await SendValidity();
+    }
+
+    private async Task SendValidity()
+    {
+        if (IsValidEmail(Email))
+            await OnValidInput.InvokeAsync(Email);
+        else
+            OnInvalidInput();
+    }
+
+}

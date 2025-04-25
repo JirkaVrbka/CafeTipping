@@ -1,0 +1,30 @@
+﻿@rendermode InteractiveServer
+
+@namespace CaffeTiping.WebApp.Components.PageComponents.Home
+
+<Field Class="centered-base flex-column">
+    <FieldLabel>
+        Thank you!
+    </FieldLabel>
+    <Rating
+        Color="Color.Warning"
+        TextSize="TextSize.ExtraLarge"
+        SelectedValue="@Rating"
+        SelectedValueChanged="@RatingChanged"/>
+</Field>
+
+
+@code {
+    
+    [Parameter, EditorRequired]
+    public short Rating { get; set; }
+    
+    [Parameter, EditorRequired]
+    public EventCallback<short> OnValidInput { get; set; }
+
+    private async Task RatingChanged(int rating)
+    {
+        Rating = (short) rating;
+        await OnValidInput.InvokeAsync(Rating);
+    }
+}

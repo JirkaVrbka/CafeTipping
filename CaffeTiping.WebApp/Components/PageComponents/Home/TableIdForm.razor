@@ -1,0 +1,40 @@
+﻿@rendermode InteractiveServer
+
+@namespace CaffeTiping.WebApp.Components.PageComponents.Home
+
+<Field Class="centered-base flex-column">
+    <FieldLabel>
+        Table ID
+    </FieldLabel>
+    <TextEdit
+        Placeholder="9f1e7c2b-1..."
+        TextChanged="@OnTableIdChanged"
+    />
+</Field>
+
+@code {
+    
+    [Inject]
+    public ILogger<Table> Logger { get; set; }
+    
+    [Parameter, EditorRequired]
+    public EventCallback<Guid> OnValidInput { get; set; }
+    
+    [Parameter, EditorRequired]
+    public EventCallback OnInvalidInput { get; set; }
+    
+    
+    private async Task OnTableIdChanged(string tableId)
+    {
+        Logger.LogInformation("Verifying table Id");
+        if (Guid.TryParse(tableId, out var guid))
+        {
+            Logger.LogInformation("Accepted table Id");
+            await OnValidInput.InvokeAsync(guid);
+        }
+        else
+        {
+            await OnInvalidInput.InvokeAsync();
+        }
+    } 
+}

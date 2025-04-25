@@ -1,0 +1,93 @@
+﻿@rendermode InteractiveServer
+
+@namespace CaffeTiping.WebApp.Components.PageComponents.Home
+
+<div class="label text-center">
+    Your bill is @Bill Czk
+</div>
+<div class="label text-center pb-3">
+    What is your tip?
+</div>
+
+<div class="d-flex justify-content-center flex-column">
+    @foreach (var perc in _predefinedPercentages)
+    {
+        <Button
+            Color="Color.Primary"
+            Outline="@(_selectedTip != perc)"
+            Clicked="@(async _ => await SetPercentage(perc))"
+            Class="mb-2">
+            @(perc) %
+            <span class="exact-amount">@(Bill * perc / 100) Czk</span>
+        </Button>
+    }
+
+    @if (_customTipInputVisible || (Tip >= 0 && !_predefinedPercentages.Contains(_selectedTip)))
+    {
+        <div class="p-relative">
+            <NumericPicker
+                TValue="int"
+                ValueChanged="@SetPercentage"
+                Class="text-center"
+                Min="0"/>
+
+            @if (_selectedTip > 0)
+            {
+                <span class="exact-amount">@(Bill * _selectedTip / 100) Czk</span>
+            }
+        </div>
+    }
+    else
+    {
+        <Button
+            Color="Color.Secondary"
+            Clicked="@ClickedCustomButton"
+            Class="mt-2"
+            Outline>
+            Custom
+        </Button>
+    }
+    
+    
+</div>
+
+<div class="label text-center pb-3">
+    Total amount: @(Bill + (Bill * _selectedTip / 100)) Czk
+</div>
+
+@code {
+    
+    [Parameter, EditorRequired]
+    public EventCallback<double> TipChanged { get; set; } = EventCallback<double>.Empty;
+
+    [Parameter, EditorRequired]
+    public double Bill { get; set; }
+    
+    [Parameter, EditorRequired]
+    public double Tip { get; set; } 
+    
+    
+    private readonly List<int> _predefinedPercentages = [30, 20, 10, 5, 2];
+
+    private bool _customTipInputVisible;
+    private int _selectedTip = 0;
+
+    protected override void OnParametersSet()
+    {
+        _selectedTip = Convert.ToInt32(Tip * 100 / Bill);
+        base.OnParametersSet();
+    }
+
+    private async Task SetPercentage(int percentage)
+    {
+        _selectedTip = percentage;
+
+        await TipChanged.InvokeAsync(Bill * _selectedTip / 100);
+    }
+
+    private async Task ClickedCustomButton()
+    {
+        _customTipInputVisible = true;
+        await TipChanged.InvokeAsync(0);
+    }
+}

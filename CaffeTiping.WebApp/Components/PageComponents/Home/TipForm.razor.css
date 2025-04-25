@@ -1,0 +1,13 @@
+﻿
+.exact-amount
+{
+    position: absolute;
+    right: 20px;
+    font-size: 15px;
+    color: #d1d1d1;
+}
+
+.active-tip
+{
+    background-color: #0f5132;
+}

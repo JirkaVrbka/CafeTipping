@@ -1,0 +1,30 @@
+.tip-base
+{
+    min-width: 350px;
+    width: 60%;
+}
+
+
+.navigation-icon
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0);
+    color: #eaeaea;
+
+    transition: all ease-in-out 250ms;
+}
+
+.navigation-icon:hover
+{
+    background: linear-gradient(90deg, #ffffff00, #eaeaea 40%, #eaeaea 60%, #ffffff00);
+    color: black;
+    transition: all ease-in-out 250ms;
+}
+
+.tip-base
+{
+    display: flex;
+    justify-content: center;
+}

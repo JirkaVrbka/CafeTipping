@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaffeTiping.WebApp", "CaffeTiping.WebApp\CaffeTiping.WebApp.csproj", "{39144651-E06C-49AC-B4AF-E581B24E750F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaffeTipping.DbDomain", "CaffeTipping.DbDomain\CaffeTipping.DbDomain.csproj", "{E231F001-8869-4E73-9BC3-072DC1B89EBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaffeTipping.DbInfrastructure", "CaffeTipping.DbInfrastructure\CaffeTipping.DbInfrastructure.csproj", "{06BEE3CA-7ABE-4F61-A259-46257ADC9596}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaffeTipping.DbModel", "CaffeTipping.DbModel\CaffeTipping.DbModel.csproj", "{6B209D05-5038-4C43-AAC8-F227388C4712}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaffeTipping.DbServices", "CaffeTipping.DbServices\CaffeTipping.DbServices.csproj", "{EF2248AB-2238-48A8-AD86-A1D37061EACA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaffeTipping.DbServices.Tests", "CaffeTipping.DbServices.Tests\CaffeTipping.DbServices.Tests.csproj", "{C8EE8DCE-AC81-4D1A-B1E8-0E97106EEE29}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39144651-E06C-49AC-B4AF-E581B24E750F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39144651-E06C-49AC-B4AF-E581B24E750F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39144651-E06C-49AC-B4AF-E581B24E750F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39144651-E06C-49AC-B4AF-E581B24E750F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E231F001-8869-4E73-9BC3-072DC1B89EBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E231F001-8869-4E73-9BC3-072DC1B89EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E231F001-8869-4E73-9BC3-072DC1B89EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E231F001-8869-4E73-9BC3-072DC1B89EBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06BEE3CA-7ABE-4F61-A259-46257ADC9596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06BEE3CA-7ABE-4F61-A259-46257ADC9596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06BEE3CA-7ABE-4F61-A259-46257ADC9596}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06BEE3CA-7ABE-4F61-A259-46257ADC9596}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B209D05-5038-4C43-AAC8-F227388C4712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B209D05-5038-4C43-AAC8-F227388C4712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B209D05-5038-4C43-AAC8-F227388C4712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B209D05-5038-4C43-AAC8-F227388C4712}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF2248AB-2238-48A8-AD86-A1D37061EACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF2248AB-2238-48A8-AD86-A1D37061EACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF2248AB-2238-48A8-AD86-A1D37061EACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF2248AB-2238-48A8-AD86-A1D37061EACA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8EE8DCE-AC81-4D1A-B1E8-0E97106EEE29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8EE8DCE-AC81-4D1A-B1E8-0E97106EEE29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8EE8DCE-AC81-4D1A-B1E8-0E97106EEE29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8EE8DCE-AC81-4D1A-B1E8-0E97106EEE29}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
