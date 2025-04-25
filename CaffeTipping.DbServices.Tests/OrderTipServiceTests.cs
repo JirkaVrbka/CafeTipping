@@ -1,6 +1,7 @@
-using CaffeTipping.DbServices.Dtos;
-using CaffeTipping.DbServices.Exceptions;
 using CaffeTipping.DbServices.Services;
+using CaffeTipping.ServicesContract;
+using CaffeTipping.ServicesContract.Dtos;
+using CaffeTipping.ServicesContract.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CaffeTipping.DbServices.Tests;

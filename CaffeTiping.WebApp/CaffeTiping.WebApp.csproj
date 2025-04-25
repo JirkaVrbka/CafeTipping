@@ -15,6 +15,7 @@
     <ItemGroup>
       <ProjectReference Include="..\CaffeTipping.DbDomain\CaffeTipping.DbDomain.csproj" />
       <ProjectReference Include="..\CaffeTipping.DbServices\CaffeTipping.DbServices.csproj" />
+      <ProjectReference Include="..\CaffeTipping.FileServices\CaffeTipping.FileServices.csproj" />
     </ItemGroup>
 
 </Project>

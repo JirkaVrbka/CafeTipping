@@ -1,5 +1,5 @@
-﻿using CaffeTipping.DbServices.Dtos;
-using CaffeTipping.DbModel;
+﻿using CaffeTipping.DbModel;
+using CaffeTipping.ServicesContract.Dtos;
 
 namespace CaffeTipping.DbServices.Mappers;
 

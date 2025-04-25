@@ -1,7 +1,8 @@
 ﻿using CaffeTipping.DbDomain.Repositories;
-using CaffeTipping.DbServices.Dtos;
-using CaffeTipping.DbServices.Exceptions;
 using CaffeTipping.DbServices.Mappers;
+using CaffeTipping.ServicesContract;
+using CaffeTipping.ServicesContract.Dtos;
+using CaffeTipping.ServicesContract.Exceptions;
 
 namespace CaffeTipping.DbServices.Services;
 
@@ -14,12 +15,7 @@ public class OrderTipService(IOrderTipRepository orderTipRepository) : IOrderTip
     {
         var order = await _orderTipRepository.GetAsync(o => o.TableId.Equals(tableId));
         
-        return order?.ToDto() ?? new()
-        {
-            Id = Guid.Empty,
-            TableId = tableId,
-            Bill = _random.Next(20, 2000)
-        };
+        return order?.ToDto() ?? OrderTipDto.GetEmpty(tableId);
     }
 
     public async Task CreateOrderTip(OrderTipDto orderTipDto)

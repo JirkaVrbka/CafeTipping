@@ -1,4 +1,4 @@
-﻿namespace CaffeTipping.DbServices.Dtos;
+﻿namespace CaffeTipping.ServicesContract.Dtos;
 
 public class OrderTipDto
 {
@@ -10,5 +10,13 @@ public class OrderTipDto
     public short Rating { get; set; } = -1;
     
     public DateTime Date { get; set; } = DateTime.Now;
+    
+    public static OrderTipDto GetEmpty(Guid tableId)
+        => new()
+    {
+        Id = Guid.Empty,
+        TableId = tableId,
+        Bill = new Random().Next(20, 2000)
+    };
 
 }

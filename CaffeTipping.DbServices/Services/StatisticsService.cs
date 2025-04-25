@@ -1,23 +1,23 @@
 ﻿using CaffeTipping.DbDomain.Repositories;
 using CaffeTipping.DbModel;
-using CaffeTipping.DbServices.Dtos;
 using CaffeTipping.DbServices.Mappers;
+using CaffeTipping.ServicesContract;
+using CaffeTipping.ServicesContract.Dtos;
+using Microsoft.Extensions.Logging;
 
 namespace CaffeTipping.DbServices.Services;
 
-public class StatisticsService(IStatisticsRepository statisticsRepository) : IStatisticsService
+public class StatisticsService(ILogger<StatisticsService> logger, IStatisticsRepository statisticsRepository) : IStatisticsService
 {
     private readonly IStatisticsRepository _statisticsRepository = statisticsRepository;
 
 
     public async Task UpdateStatistics(StatisticsDto statisticsDto)
     {
-
-        Console.WriteLine($"Updating statistics: {statisticsDto}");
         var entity = await _statisticsRepository.GetAsync(statisticsDto.Id);
         if (entity is null)
         {
-            Console.WriteLine($"Statistics not found: {statisticsDto}");
+            logger.LogWarning("Unable to update statistics dto");
             return;
         }
 
@@ -28,15 +28,11 @@ public class StatisticsService(IStatisticsRepository statisticsRepository) : ISt
         entity.AverageTipPerc = statisticsDto.AverageTipPerc;
         entity.TotalTips = statisticsDto.TotalTips;
 
-        Console.WriteLine("Updating statistics");
         await _statisticsRepository.UpdateAsync(entity);
     }
 
     public async Task<StatisticsDto> GetLatestAsync()
     {
-        var all = await _statisticsRepository.GetAllAsync();
-        Console.WriteLine($"Retrieved statistics: {all.Count}");
-        
         var latest = await _statisticsRepository.GetLatestStatistics();
         if (latest != null && latest.Updated.Date.Equals(DateTime.Today))
             return latest.ToDto();

@@ -1,4 +1,4 @@
-﻿namespace CaffeTipping.DbServices.Exceptions;
+﻿namespace CaffeTipping.ServicesContract.Exceptions;
 
 public class DuplicateTableIdException : Exception
 {

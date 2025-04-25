@@ -1,29 +1,37 @@
 ﻿@page "/statistics"
-@using CaffeTipping.DbServices.Dtos
-@using CaffeTipping.DbServices.Services
-@attribute [StreamRendering]
+@using CaffeTipping.ServicesContract
+@using CaffeTipping.ServicesContract.Dtos
+@rendermode InteractiveServer
 
 <PageTitle>Statistics</PageTitle>
 
 <h1>Statistics</h1>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Total amount</th>
-        <th>Avg perc tips</th>
-        <th>Avg rating</th>
-    </tr>
-    </thead>
-    <tbody>
+@if (_statisticsDto is not null)
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Total amount</th>
+            <th>Avg perc tips</th>
+            <th>Avg rating</th>
+        </tr>
+        </thead>
+        <tbody>
 
-    <tr>
-        <td>@_statisticsDto.TotalTips Czk</td>
-        <td>@Convert.ToInt32(_statisticsDto.AverageTipPerc) %</td>
-        <td>@_statisticsDto.AverageRating</td>
-    </tr>
-    </tbody>
-</table>
+        <tr>
+            <td>@_statisticsDto.TotalTips Czk</td>
+            <td>@Convert.ToInt32(_statisticsDto.AverageTipPerc) %</td>
+            <td>@_statisticsDto.AverageRating</td>
+        </tr>
+        </tbody>
+    </table>
+}
+else
+{
+    <div>Loading data</div>
+}
+
 
 @if (_orderTipDto is not null)
 {
@@ -41,7 +49,7 @@
         <tbody>
 
         <tr>
-            <td>@(_orderTipDto.Bill + _orderTipDto.Tip)</td>
+            <td>@(_orderTipDto.Bill + _orderTipDto.Tip) Czk</td>
             <td>@_orderTipDto.Tip Czk</td>
             <td>@Convert.ToInt32(_orderTipDto.Tip * 100 /_orderTipDto.Bill) %</td>
             <td>@_orderTipDto.Date</td>
@@ -62,7 +70,7 @@ else
     [Inject]
     public IStatisticsService StatisticsService { get; set; } = null!;
 
-    private StatisticsDto _statisticsDto;
+    private StatisticsDto? _statisticsDto;
     private OrderTipDto? _orderTipDto;
 
     protected override async Task OnInitializedAsync()

@@ -22,15 +22,25 @@ builder
     .Logging
     .AddConsole();
 
+// Database
+// builder
+//     .Services
+//     .AddDatabase();
+//
+// builder
+//     .Services
+//     .AddDbServices();
+
+// File storage
 builder
     .Services
-    .AddDatabase();
+    .AddFileStorageServices();
 
+
+// Background services
 builder
     .Services
-    .AddDbServices();
-
-builder.Services.AddHostedService<StatisticsComputer>();
+    .AddHostedService<StatisticsComputer>();
 
 
 var app = builder.Build();

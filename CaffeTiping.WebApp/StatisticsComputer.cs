@@ -1,5 +1,6 @@
-﻿using CaffeTipping.DbServices.Dtos;
-using CaffeTipping.DbServices.Services;
+﻿using CaffeTipping.DbServices.Services;
+using CaffeTipping.ServicesContract;
+using CaffeTipping.ServicesContract.Dtos;
 
 namespace CaffeTiping.WebApp;
 
@@ -17,7 +18,7 @@ public class StatisticsComputer(
 
         while (await Timer.WaitForNextTickAsync(stoppingToken))
         {
-            logger.LogTrace("Updating statistics");
+            logger.LogInformation("Updating statistics");
             var orders = await tipService.GetAllOrderTips();
             var stats = await statisticsService.GetLatestAsync();
 
@@ -37,7 +38,7 @@ public class StatisticsComputer(
         await base.StopAsync(cancellationToken);
     }
 
-    private double CountAverageRating(List<OrderTipDto> orders)
+    private static double CountAverageRating(List<OrderTipDto> orders)
     {
         try
         {
@@ -50,7 +51,7 @@ public class StatisticsComputer(
     }
 
 
-    private double CountTipPercAverage(List<OrderTipDto> orders)
+    private static double CountTipPercAverage(List<OrderTipDto> orders)
     {
         try
         {
@@ -63,7 +64,7 @@ public class StatisticsComputer(
     }
 
 
-    private Guid? FindBiggestTipOfTheDay(List<OrderTipDto> orders)
+    private static Guid? FindBiggestTipOfTheDay(List<OrderTipDto> orders)
     {
         try
         {

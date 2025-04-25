@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaffeTipping.DbServices", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaffeTipping.DbServices.Tests", "CaffeTipping.DbServices.Tests\CaffeTipping.DbServices.Tests.csproj", "{C8EE8DCE-AC81-4D1A-B1E8-0E97106EEE29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaffeTipping.ServicesContract", "CaffeTipping.ServicesContract\CaffeTipping.ServicesContract.csproj", "{A71EF00A-77A9-48D3-B440-D26886928F85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaffeTipping.FileServices", "CaffeTipping.FileServices\CaffeTipping.FileServices.csproj", "{F4C6A771-B777-4746-98CF-64FE2C44DED3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{C8EE8DCE-AC81-4D1A-B1E8-0E97106EEE29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8EE8DCE-AC81-4D1A-B1E8-0E97106EEE29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8EE8DCE-AC81-4D1A-B1E8-0E97106EEE29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A71EF00A-77A9-48D3-B440-D26886928F85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A71EF00A-77A9-48D3-B440-D26886928F85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A71EF00A-77A9-48D3-B440-D26886928F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A71EF00A-77A9-48D3-B440-D26886928F85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4C6A771-B777-4746-98CF-64FE2C44DED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4C6A771-B777-4746-98CF-64FE2C44DED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4C6A771-B777-4746-98CF-64FE2C44DED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4C6A771-B777-4746-98CF-64FE2C44DED3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,4 @@
-﻿namespace CaffeTipping.DbServices.Dtos;
+﻿namespace CaffeTipping.ServicesContract.Dtos;
 
 public class StatisticsDto
 {

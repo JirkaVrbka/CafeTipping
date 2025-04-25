@@ -2,6 +2,7 @@
 using CaffeTipping.DbInfrastructure.Contexts;
 using CaffeTipping.DbInfrastructure.Repositories;
 using CaffeTipping.DbServices.Services;
+using CaffeTipping.ServicesContract;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

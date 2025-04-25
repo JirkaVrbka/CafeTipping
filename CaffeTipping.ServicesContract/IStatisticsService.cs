@@ -1,6 +1,6 @@
-﻿using CaffeTipping.DbServices.Dtos;
+﻿using CaffeTipping.ServicesContract.Dtos;
 
-namespace CaffeTipping.DbServices.Services;
+namespace CaffeTipping.ServicesContract;
 
 public interface IStatisticsService
 {

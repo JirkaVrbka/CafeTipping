@@ -10,11 +10,17 @@
       <ProjectReference Include="..\CaffeTipping.DbDomain\CaffeTipping.DbDomain.csproj" />
       <ProjectReference Include="..\CaffeTipping.DbInfrastructure\CaffeTipping.DbInfrastructure.csproj" />
         <ProjectReference Include="..\CaffeTipping.DbModel\CaffeTipping.DbModel.csproj" />
+        <ProjectReference Include="..\CaffeTipping.ServicesContract\CaffeTipping.ServicesContract.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.4" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Dtos\" />
+      <Folder Include="Exceptions\" />
     </ItemGroup>
 
 </Project>
