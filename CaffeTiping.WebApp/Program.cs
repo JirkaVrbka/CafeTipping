@@ -3,6 +3,7 @@ using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
 using CaffeTiping.WebApp;
 using CaffeTiping.WebApp.Components;
+using CaffeTiping.WebApp.Configuration;
 using CaffeTiping.WebApp.Extensions;
 using CaffeTipping.DbServices.Extensions;
 
@@ -22,20 +23,8 @@ builder
     .Logging
     .AddConsole();
 
-// Database
-// builder
-//     .Services
-//     .AddDatabase();
-//
-// builder
-//     .Services
-//     .AddDbServices();
-
-// File storage
-builder
-    .Services
-    .AddFileStorageServices();
-
+// Storage
+builder.AddStorageServices();
 
 // Background services
 builder
